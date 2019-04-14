@@ -77,12 +77,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainParser.cs" />
+    <Compile Include="MainPresenter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -28,6 +28,7 @@ namespace WPFTest
     {
         MainParser pars = new MainParser();
         WebClient client = new WebClient();
+        MessageService message = new MessageService();
         List<string> links = new List<string>();
 
         public MainWindow()
@@ -35,15 +36,6 @@ namespace WPFTest
             InitializeComponent();
         }
 
-        private void Parsed_OnNewData(object obj, string[] obj2)
-        {
-
-        }
-
-        private void Parsed_OnCompleted(object obj)
-        {
-
-        }
 
         private void BtnCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -68,12 +60,12 @@ namespace WPFTest
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show("В процессе работы возникла ошибка: " + ex);
+                    message.ShowError(ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show("Не корректный ввод данных. Проверьте правильность заполнения.");
+                message.ShowExclamation("Не корректный ввод данных. Проверьте правильность заполнения.");
             }
         }
 
@@ -90,12 +82,12 @@ namespace WPFTest
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("В процессе работы возникла ошибка: " + ex);
+                        message.ShowError(ex.Message);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Введите путь для сохранения файлов");
+                    message.ShowMessage("Введите путь для сохранения файлов");
                 }
         }
 
@@ -103,7 +95,6 @@ namespace WPFTest
         {
             if (TextBoxFilePath.Text != null)
             {
-
                 System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
 
                 System.Windows.Forms.DialogResult dlg = fbd.ShowDialog();
@@ -113,6 +104,10 @@ namespace WPFTest
                     string[] files = Directory.GetFiles(fbd.SelectedPath);
                     TextBoxFilePath.Text = fbd.SelectedPath;
                 }
+            }
+            else
+            {
+                message.ShowMessage("Загрузите страницу для скачивания");
             }
         }
     }

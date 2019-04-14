@@ -8,7 +8,13 @@ using System.Threading;
 
 namespace WPFTest
 {
-    public class MainParser
+    public interface IMainParser
+    {
+        List<string> ParseUrlByAngle(int number, string section);
+        void SaveImage(string imageUrl, string filePath);
+    }
+
+    public class MainParser:IMainParser
     {
         public List<string> ParseUrlByAngle(int number, string section)
         {
@@ -42,7 +48,6 @@ namespace WPFTest
                     string finalResult = firstSymb + final.Remove(final.Length - 1, 1);
                     FinalResult.Add(finalResult);
                 }
-            
             return FinalResult;
 
         }
