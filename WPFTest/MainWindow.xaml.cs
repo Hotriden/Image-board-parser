@@ -24,6 +24,7 @@ namespace WPFTest
         MessageService message = new MessageService();
         public List<string> ContentResult = new List<string>();
         public string ContentPath { get; }
+        public int SetSymbolCount { get; set; }
 
         public void SetContentCount(int count)
         {
@@ -51,6 +52,7 @@ namespace WPFTest
                     myStackPanel.Children.Clear();
                     foreach (var b in result)
                     {
+                        SetSymbolCount++;
                         ContentResult.Add(b);
                         TextBox textbox = new TextBox();
                         textbox.Text = b;
@@ -59,6 +61,7 @@ namespace WPFTest
                         textbox.IsReadOnly = true;
                         textbox.Margin = new Thickness(0, 0, 10, 0);
                         myStackPanel.Children.Add(textbox);
+                        CountValue.Text = Convert.ToString(SetSymbolCount);
                     }
                 }
                 catch(Exception ex)

@@ -235,3 +235,4 @@ C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.csproj.CoreCompile
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.csproj.CopyComplete
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.exe
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.pdb
+C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache
