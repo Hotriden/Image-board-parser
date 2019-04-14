@@ -1,41 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using AngleSharp.Html.Parser;
-using Microsoft.Win32;
 using System.IO;
 using System.Net;
-using System.ComponentModel;
-using System.Threading;
 
 namespace WPFTest
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+    public interface IMainWindow
+    {
+        string ContentPath { get; }
+        void SetContentCount(int count);
+        //List<string> ContentResult { get; set; }
+        //event EventHandler CheckContent;
+        //event EventHandler LoadContent;
+    }
+
+    public partial class MainWindow : Window, IMainWindow
     {
         MainParser pars = new MainParser();
         WebClient client = new WebClient();
         MessageService message = new MessageService();
-        List<string> links = new List<string>();
+        public List<string> ContentResult = new List<string>();
+        public string ContentPath { get; }
+
+        public void SetContentCount(int count)
+        {
+            int counter = ContentResult.Count;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+            /*
+            BtnCheck.Click += BtnCheck_Click;
+            BtnSelect.Click += BtnSelect_Click;
+            BtnLoad.Click += BtnLoad_Click;
+            */
         }
-
 
         private void BtnCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -45,16 +48,16 @@ namespace WPFTest
                 {
                     List<string> result = pars.ParseUrlByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
 
+                    myStackPanel.Children.Clear();
                     foreach (var b in result)
                     {
-                        links.Add(b);
+                        ContentResult.Add(b);
                         TextBox textbox = new TextBox();
                         textbox.Text = b;
                         textbox.HorizontalAlignment = HorizontalAlignment.Left;
                         textbox.Width = 300;
                         textbox.IsReadOnly = true;
                         textbox.Margin = new Thickness(0, 0, 10, 0);
-
                         myStackPanel.Children.Add(textbox);
                     }
                 }
@@ -75,7 +78,7 @@ namespace WPFTest
                 {
                     try
                     {
-                        foreach (var b in links)
+                        foreach (var b in ContentResult)
                         {
                             pars.SaveImage(b, TextBoxFilePath.Text);
                         }
@@ -84,14 +87,14 @@ namespace WPFTest
                     {
                         message.ShowError(ex.Message);
                     }
-                }
-                else
+            }
+            else
                 {
                     message.ShowMessage("Введите путь для сохранения файлов");
                 }
         }
 
-        private void BtnLoad_Select(object sender, RoutedEventArgs e)
+        private void BtnSelect_Click(object sender, RoutedEventArgs e)
         {
             if (TextBoxFilePath.Text != null)
             {
@@ -110,5 +113,8 @@ namespace WPFTest
                 message.ShowMessage("Загрузите страницу для скачивания");
             }
         }
+        
+        //public event EventHandler CheckContent;
+        //public event EventHandler LoadContent;
     }
 }

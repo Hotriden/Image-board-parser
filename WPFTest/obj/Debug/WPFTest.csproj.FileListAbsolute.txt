@@ -222,7 +222,6 @@ C:\Users\blood\source\repos\WPFTest\WPFTest\bin\Debug\System.Runtime.CompilerSer
 C:\Users\blood\source\repos\WPFTest\WPFTest\bin\Debug\System.Text.Encoding.CodePages.dll
 C:\Users\blood\source\repos\WPFTest\WPFTest\bin\Debug\AngleSharp.xml
 C:\Users\blood\source\repos\WPFTest\WPFTest\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\WPFTest.exe.config
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\MainWindow.g.cs
 C:\Users\blood\source\repos\WPFTest\WPFTest\obj\Debug\App.g.cs
