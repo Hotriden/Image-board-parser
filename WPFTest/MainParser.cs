@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using AngleSharp.Html.Parser;
 using System.Net;
-using System.Threading;
 
 namespace WPFTest
 {
@@ -29,27 +28,29 @@ namespace WPFTest
 
             List<string> FinalResult = new List<string>();
 
-                foreach (var b in result)
+            foreach (var b in result)
+            {
+                string pattern = "href='".Replace("'", "\"") + "/" + section;
+                string[] splitted = b.InnerHtml.Split();
+                string temp = "";
+                for (int i = 0; i < splitted.Length; i++)
                 {
-                    string pattern = "href='".Replace("'", "\"") + "/" + section;
-                    string[] splitted = b.InnerHtml.Split();
-                    string temp = null;
-                    for (int i = 0; i < splitted.Length; i++)
+                    if (splitted[i].StartsWith(pattern))
                     {
-                        if (splitted[i].StartsWith(pattern))
-                        {
-                            temp += splitted[i];
-                        }
+                        temp += splitted[i];
                     }
+                }
 
-                    string subString = @"href=""";
-                    int indexOfSubString = temp.IndexOf(subString);
+                string subString = @"href=""";
+                int indexOfSubString = temp.IndexOf(subString);
+                if (indexOfSubString >= 0)
+                {
                     string final = temp.Remove(indexOfSubString, subString.Length);
                     string finalResult = firstSymb + final.Remove(final.Length - 1, 1);
                     FinalResult.Add(finalResult);
                 }
+            }
             return FinalResult;
-
         }
 
         public void SaveImage(string imageUrl, string pathFile)

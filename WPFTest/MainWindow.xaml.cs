@@ -47,20 +47,47 @@ namespace WPFTest
             {
                 try
                 {
-                    List<string> result = pars.ParseUrlByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
+                    List<string> result = new List<string>();
+                    result = pars.ParseUrlByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
 
-                    myStackPanel.Children.Clear();
+                    myStackPanelURL.Children.Clear();
+                    myStackPanelNum.Children.Clear();
+                    myStackPanelPick.Children.Clear();
                     foreach (var b in result)
                     {
                         SetSymbolCount++;
                         ContentResult.Add(b);
-                        TextBox textbox = new TextBox();
-                        textbox.Text = b;
-                        textbox.HorizontalAlignment = HorizontalAlignment.Left;
-                        textbox.Width = 300;
-                        textbox.IsReadOnly = true;
-                        textbox.Margin = new Thickness(0, 0, 10, 0);
-                        myStackPanel.Children.Add(textbox);
+
+                        TextBox textboxURL = new TextBox();
+                        TextBox textboxNum = new TextBox();
+                        CheckBox checkbox = new CheckBox();
+                        Button buttonFCheck = new Button();
+
+                        textboxNum.Text = Convert.ToString(SetSymbolCount);
+                        textboxURL.Text = b;
+                        textboxURL.HorizontalAlignment = HorizontalAlignment.Left;
+                        textboxURL.Width = 300;
+                        textboxURL.IsReadOnly = true;
+
+                        textboxURL.Margin = new Thickness(0, 1, 0, 0);
+                        textboxNum.Margin = new Thickness(0, 1, 0, 0);
+                        checkbox.Margin = new Thickness(0, 1, 0, 0);
+                        buttonFCheck.Margin = new Thickness(0, 1, 0, 0);
+
+                        textboxURL.Height = 18;
+                        textboxNum.Height = 18;
+                        checkbox.Height = 18;
+                        buttonFCheck.Height = 18;
+
+                        checkbox.HorizontalAlignment = HorizontalAlignment.Center;
+                        checkbox.IsChecked = true;
+                        buttonFCheck.Content = "Скачать";
+
+                        myStackPanelURL.Children.Add(textboxURL);
+                        myStackPanelNum.Children.Add(textboxNum);
+                        myStackPanelCheck.Children.Add(checkbox);
+                        myStackPanelButton.Children.Add(buttonFCheck);
+
                         CountValue.Text = Convert.ToString(SetSymbolCount);
                     }
                 }
@@ -74,6 +101,7 @@ namespace WPFTest
                 message.ShowExclamation("Не корректный ввод данных. Проверьте правильность заполнения.");
             }
         }
+
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {

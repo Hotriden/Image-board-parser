@@ -20,7 +20,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.RowSpan="5" Name="mainStackPanel" Background="Azure" ScrollViewer.CanContentScroll="False">
+            <StackPanel Grid.Row="0" Grid.RowSpan="5" Name="mainStackPanel" Background="Azure" ScrollViewer.CanContentScroll="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -74,8 +74,25 @@
                 </Grid>
             </StackPanel>
             <ScrollViewer Grid.Row="5" Grid.RowSpan="4">
-                <StackPanel Grid.Row="5" Grid.RowSpan="5" Name="myStackPanel" Background="Azure" ScrollViewer.CanContentScroll="False" Margin="10 0 10 0">
-                </StackPanel>
+                <Grid Grid.Row="5" Grid.RowSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="25"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Name="myStackPanelNum" Grid.Column="0" Background="Azure" Margin="1 1 1 1">
+                    </StackPanel>
+                    <StackPanel Name="myStackPanelPick" Grid.Column="1" Background="Azure" Margin="1 1 1 1" >
+                    </StackPanel>
+                    <StackPanel Name="myStackPanelURL" Grid.Column="2" Background="Azure" Margin="0 0 0 0">
+                    </StackPanel>
+                    <StackPanel Name="myStackPanelCheck" Grid.Column="3" Background="Azure" Margin="1 1 1 1">
+                    </StackPanel>
+                    <StackPanel Name="myStackPanelButton" Grid.Column="4" Background="Azure" Margin="1 1 1 1">
+                    </StackPanel>
+                </Grid>
             </ScrollViewer>
             <Grid Grid.Row="10">
                 <Grid.ColumnDefinitions>
