@@ -82,5 +82,33 @@ namespace WPFTest
                 webclient.DownloadFileAsync(new Uri(imageUrl), fileName);
             }
         }
+
+        public Uri UriConverter(string url)
+        {
+            string end = url.Remove(0, url.Length - 4);
+            if (end == ".mp4")
+            {
+                return new Uri(url.Remove(url.Length - 4, 4) + ".jpg");
+            }
+            else if(end == "webm")
+            {
+                return new Uri(url.Remove(url.Length-4, 4) + "jpg");
+            }
+            return new Uri(url);
+        }
+
+        /*
+        public Uri UrlCheck(string url)
+        {
+            string currentPath = Environment.CurrentDirectory;
+            string end = url.Remove(0, url.Length - 4);
+            switch (end)
+            {
+                case ".mp4":
+                    return new Uri(Environment.CurrentDirectory + currentPath + )
+            }
+            return new Uri(url);
+        }
+        */
     }
 }

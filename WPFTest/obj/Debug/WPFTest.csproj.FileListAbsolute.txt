@@ -341,7 +341,6 @@ C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\bin\Debug\Syst
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\bin\Debug\System.Text.Encoding.CodePages.dll
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\bin\Debug\AngleSharp.xml
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.exe.config
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\MainWindow.g.cs
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\App.g.cs
@@ -355,3 +354,4 @@ C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFT
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csproj.CopyComplete
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.exe
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.pdb
+C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache

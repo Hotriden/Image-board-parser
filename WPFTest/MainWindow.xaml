@@ -74,24 +74,41 @@
                 </Grid>
             </StackPanel>
             <ScrollViewer Grid.Row="5" Grid.RowSpan="4">
-                <Grid Grid.Row="5" Grid.RowSpan="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Name="myStackPanelNum" Grid.Column="0" Background="Azure" Margin="1 1 1 1">
-                    </StackPanel>
-                    <StackPanel Name="myStackPanelPick" Grid.Column="1" Background="Azure" Margin="1 1 1 1" >
-                    </StackPanel>
-                    <StackPanel Name="myStackPanelURL" Grid.Column="2" Background="Azure" Margin="0 0 0 0">
-                    </StackPanel>
-                    <StackPanel Name="myStackPanelCheck" Grid.Column="3" Background="Azure" Margin="1 1 1 1">
-                    </StackPanel>
-                    <StackPanel Name="myStackPanelButton" Grid.Column="4" Background="Azure" Margin="1 1 1 1">
-                    </StackPanel>
+                <Grid>
+                    <ListView  Name="listView">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="№" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Img" Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Image}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Content Url" Width="245">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Url}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Check" Width="40">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding Checked}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </ScrollViewer>
             <Grid Grid.Row="10">
