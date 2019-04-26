@@ -13,10 +13,4 @@ namespace WPFTest
         public Uri Image { get; set; }
         public bool Checked { get; set; }
     }
-
-    public class SearchResult
-    {
-        public List<string> Titles { get; set; }
-        public List<string> Results { get; set; }
-    }
 }

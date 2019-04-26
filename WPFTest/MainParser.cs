@@ -9,13 +9,13 @@ namespace WPFTest
 {
     public interface IMainParser
     {
-        List<string> ParseUrlByAngle(int number, string section);
+        List<List<string>> ParseByAngle(int number, string section);
         void SaveImage(string imageUrl, string filePath);
     }
 
     public class MainParser:IMainParser
     {
-        public List<string> ParseUrlByAngle(int number, string section)
+        public List<List<string>> ParseByAngle(int number, string section)
         {
             string firstSymb = "https://2ch.hk/";
             string url = firstSymb + section + "/res/" + number + ".html";
@@ -26,16 +26,18 @@ namespace WPFTest
             var search = parser.ParseDocument(Response);
             var result = search.GetElementsByClassName("post__file-attr").ToArray();
 
-            List<string> FinalResult = new List<string>();
+            List<string> TitleResult = new List<string>();
+            List<string> UrlResult = new List<string>();
+            List<List<string>> FinalResult = new List<List<string>>();
 
             foreach (var b in result)
             {
-                string pattern = "href='".Replace("'", "\"") + "/" + section;
+                string patternUrl = "href='".Replace("'", "\"") + "/" + section;
                 string[] splitted = b.InnerHtml.Split();
                 string temp = "";
                 for (int i = 0; i < splitted.Length; i++)
                 {
-                    if (splitted[i].StartsWith(pattern))
+                    if (splitted[i].StartsWith(patternUrl))
                     {
                         temp += splitted[i];
                     }
@@ -45,9 +47,9 @@ namespace WPFTest
                 int indexOfSubString = temp.IndexOf(subString);
                 if (indexOfSubString >= 0)
                 {
-                    string final = temp.Remove(indexOfSubString, subString.Length);
-                    string finalResult = firstSymb + final.Remove(final.Length - 1, 1);
-                    FinalResult.Add(finalResult);
+                    string finalUrl = temp.Remove(indexOfSubString, subString.Length);
+                    string finalUrlResult = firstSymb + finalUrl.Remove(finalUrl.Length - 1, 1);
+                    UrlResult.Add(finalUrlResult);
                 }
             }
             return FinalResult;

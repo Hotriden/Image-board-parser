@@ -23,7 +23,7 @@ namespace WPFTest
         MainParser pars = new MainParser();
         WebClient client = new WebClient();
         MessageService message = new MessageService();
-        public List<string> ContentResult = new List<string>();
+        public List<List<string>> ContentResult = new List<List<string>>();
         public string ContentPath { get; }
         public int SetSymbolCount { get; set; }
         private MyDataContext MyData;
@@ -51,9 +51,10 @@ namespace WPFTest
             {
                 try
                 {
-                    ContentResult = pars.ParseUrlByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
+                    ContentResult = pars.ParseByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
 
-                    foreach(var b in ContentResult)
+
+                    foreach(List<string> list in ContentResult)
                     {
                         SetSymbolCount++;
                         MyData.MyCollection.Add(new DataModel()
