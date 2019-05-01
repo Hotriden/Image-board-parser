@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.IO;
 using System.Net;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows.Navigation;
 
 namespace WPFTest
 {
@@ -23,14 +25,14 @@ namespace WPFTest
         MainParser pars = new MainParser();
         WebClient client = new WebClient();
         MessageService message = new MessageService();
-        public List<List<string>> ContentResult = new List<List<string>>();
+        ParsResult ContentResult = new ParsResult();
         public string ContentPath { get; }
         public int SetSymbolCount { get; set; }
         private MyDataContext MyData;
 
         public void SetContentCount(int count)
         {
-            int counter = ContentResult.Count;
+            int counter = ContentResult.UrlResult.Count;
         }
 
         public MainWindow()
@@ -38,6 +40,14 @@ namespace WPFTest
             InitializeComponent();
             MyData = new MyDataContext();
             DataContext = MyData;
+
+            /*
+            ScrollViewer sv = new ScrollViewer();
+            sv.CanContentScroll = true;
+            sv.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+            myStackPanel.Children.Add(sv);
+            */
+            
             /*
             BtnCheck.Click += BtnCheck_Click;
             BtnSelect.Click += BtnSelect_Click;
@@ -51,23 +61,23 @@ namespace WPFTest
             {
                 try
                 {
+                    MyData.MyCollection.Clear();
+                    SetSymbolCount = 0;
                     ContentResult = pars.ParseByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
 
-
-                    foreach(List<string> list in ContentResult)
+                    for(int i=0; i<ContentResult.TitleResult.Count; i++)
                     {
                         SetSymbolCount++;
                         MyData.MyCollection.Add(new DataModel()
                         {
-                            Image = pars.UriConverter(b),
                             Id = SetSymbolCount,
-                            Url = b,
-                            Checked = false
+                            Url = ContentResult.UrlResult[i],
+                            Image= new Uri(ContentResult.TitleResult[i]),
+                            Checked=false
                         });
-                        CountValue.Text = Convert.ToString(SetSymbolCount);
                     }
-
                     listView.ItemsSource = MyData.MyCollection;
+                    CountValue.Text = Convert.ToString(SetSymbolCount);
                 }
                 catch (Exception ex)
                 {
@@ -80,27 +90,26 @@ namespace WPFTest
             }
         }
 
-
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-                if (TextBoxFilePath.Text != "")
+            if (TextBoxFilePath.Text != "")
+            {
+                try
                 {
-                    try
+                    foreach (var b in ContentResult.UrlResult)
                     {
-                        foreach (var b in ContentResult)
-                        {
-                            pars.SaveImage(b, TextBoxFilePath.Text);
-                        }
+                        pars.SaveImage(b, TextBoxFilePath.Text);
                     }
-                    catch (Exception ex)
-                    {
-                        message.ShowError(ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    message.ShowError(ex.Message);
+                }
             }
             else
-                {
-                    message.ShowMessage("Введите путь для сохранения файлов");
-                }
+            {
+                message.ShowMessage("Введите путь для сохранения файлов");
+            }
         }
 
         private void BtnSelect_Click(object sender, RoutedEventArgs e)
@@ -122,7 +131,32 @@ namespace WPFTest
                 message.ShowMessage("Загрузите страницу для скачивания");
             }
         }
-        
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+        private void Hyperlink_Download(object sender, RequestNavigateEventArgs e)
+        {
+            if (TextBoxFilePath.Text != "")
+            {
+                try
+                {
+                    pars.SaveImage(e.Uri.AbsoluteUri, TextBoxFilePath.Text);
+                }
+                catch (Exception ex)
+                {
+                    message.ShowError(ex.Message);
+                }
+            }
+            else
+            {
+                message.ShowMessage("Введите путь для сохранения файлов");
+            }
+        }
+
         //public event EventHandler CheckContent;
         //public event EventHandler LoadContent;
     }

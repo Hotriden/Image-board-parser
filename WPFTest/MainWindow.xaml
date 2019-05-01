@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFTest"
         mc:Ignorable="d"
-        Title="ICP - Imageboard Content Parser" Height="400" Width="400" HorizontalAlignment="Left" VerticalAlignment="Center" ResizeMode="NoResize">
+        Title="ICP - Imageboard Content Parser" Height="600" Width="400" HorizontalAlignment="Left" VerticalAlignment="Center" ResizeMode="NoResize">
     <Border Padding="5" Margin="0,0,0,0" Background="White" BorderThickness="4" BorderBrush="Aqua">
         <Grid>
             <Grid.RowDefinitions>
@@ -20,7 +20,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.RowSpan="5" Name="mainStackPanel" Background="Azure" ScrollViewer.CanContentScroll="True">
+            <StackPanel Grid.Row="0" Grid.RowSpan="3" Name="mainStackPanel" Background="Azure" ScrollViewer.CanContentScroll="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -73,45 +73,60 @@
                     <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="" Name="TextBoxFilePath" Margin="0 10 10 10" Padding="3"/>
                 </Grid>
             </StackPanel>
-            <ScrollViewer Grid.Row="5" Grid.RowSpan="4">
-                <Grid>
-                    <ListView  Name="listView">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="№" Width="Auto">
+            <Grid Name="myStackPanel" Grid.Row="3" Grid.RowSpan="6">
+                <ListView Name="listView" HorizontalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="BorderThickness" Value="1,1,1,1"></Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="№" Width="35">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Id}"/>
-                                        </DataTemplate>
+                                            <TextBlock Width="Auto" MinWidth="25" Text="{Binding Id}" VerticalAlignment="Center"/>
+                                    </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Img" Width="50">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding Image}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Content Url" Width="245">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Url}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Check" Width="40">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <CheckBox IsChecked="{Binding Checked}"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-            </ScrollViewer>
-            <Grid Grid.Row="10">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Изображение">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Width="Auto" MinWidth="96" MaxWidth="96" Source="{Binding Image}" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Открыть" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="Auto" MaxWidth="50">
+                                                <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="Hyperlink_RequestNavigate">Открыть</Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Скачать" Width="60">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="Auto" MaxWidth="50" VerticalAlignment="Center">
+                                                <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="Hyperlink_Download">Скачать</Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Выбор" Width="55">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Width="Auto" MaxWidth="45" IsChecked="{Binding Checked}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid Grid.Row="10" Height="40">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>

@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="MessageService.cs" />
     <Compile Include="MyDataContext.cs" />
+    <Compile Include="ParsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
