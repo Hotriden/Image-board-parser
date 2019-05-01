@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using AngleSharp.Html.Parser;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace WPFTest
 {
     public interface IMainParser
     {
         ParsResult ParseByAngle(int number, string section);
-        void SaveImage(string imageUrl, string filePath);
+        Task SaveImage(string imageUrl, string filePath);
     }
 
     public class MainParser:IMainParser
@@ -61,33 +62,15 @@ namespace WPFTest
             return FinalResult;
         }
 
-        public void SaveImage(string imageUrl, string pathFile)
+        public async Task SaveImage(string imageUrl, string pathFile)
         {
-            string reversedUrl;
-            string backforward = null;
-            char[] revereUrl = imageUrl.ToCharArray();
-            Array.Reverse(revereUrl);
-            reversedUrl = new string(revereUrl);
+            string result = imageUrl.Substring(imageUrl.IndexOf("src/") + 14);
 
-            for (int i = 0; i<reversedUrl.Length; i++)
-            {
-                if (reversedUrl[i] == '/')
-                {
-                    break;
-                }
-                else
-                {
-                    backforward += reversedUrl[i];
-                }
-            }
-            char[] secondRevers = backforward.ToCharArray();
-            Array.Reverse(secondRevers);
-            reversedUrl = new string(secondRevers);
-            string fileName = pathFile + @"\" + reversedUrl;
+            string fileName = pathFile + @"\" + result;
             
             using (WebClient webclient = new WebClient())
             {
-                webclient.DownloadFileAsync(new Uri(imageUrl), fileName);
+                await Task.Run(() => webclient.DownloadFileAsync(new Uri(imageUrl), fileName));
             }
         }
 
@@ -104,5 +87,5 @@ namespace WPFTest
             }
             return new Uri(url);
         }
-       }
+        }
 }

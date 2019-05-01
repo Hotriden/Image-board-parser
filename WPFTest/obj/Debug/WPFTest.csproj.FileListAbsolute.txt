@@ -355,7 +355,6 @@ C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFT
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.exe
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.pdb
 C:\Users\Вячеслав\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache
-C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.exe.config
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\MainWindow.g.cs
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\App.g.cs
@@ -474,3 +473,4 @@ C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.Propert
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csproj.GenerateResource.cache
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csproj.CoreCompileInputs.cache
 C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csproj.CopyComplete
+C:\Users\blood\source\repos\Image-board-parser\WPFTest\obj\Debug\WPFTest.csprojAssemblyReference.cache

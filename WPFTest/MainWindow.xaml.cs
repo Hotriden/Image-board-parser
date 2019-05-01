@@ -7,6 +7,7 @@ using System.Net;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Navigation;
+using System.Threading.Tasks;
 
 namespace WPFTest
 {
@@ -90,7 +91,7 @@ namespace WPFTest
             }
         }
 
-        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        private async void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
             if (TextBoxFilePath.Text != "")
             {
@@ -98,7 +99,7 @@ namespace WPFTest
                 {
                     foreach (var b in ContentResult.UrlResult)
                     {
-                        pars.SaveImage(b, TextBoxFilePath.Text);
+                        await pars.SaveImage(b, TextBoxFilePath.Text);
                     }
                 }
                 catch (Exception ex)
@@ -138,13 +139,23 @@ namespace WPFTest
             e.Handled = true;
         }
 
-        private void Hyperlink_Download(object sender, RequestNavigateEventArgs e)
+        private async void Hyperlink_Download(object sender, RequestNavigateEventArgs e)
         {
             if (TextBoxFilePath.Text != "")
             {
                 try
                 {
-                    pars.SaveImage(e.Uri.AbsoluteUri, TextBoxFilePath.Text);
+                    var progress = new Progress<int>(value => pBar.Value = value);
+                    await Task.Run(() =>
+                    {
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Dispatcher.Invoke(() => {
+                                pars.SaveImage(e.Uri.AbsoluteUri, TextBoxFilePath.Text);
+                            });
+                            pBar.Dispatcher.Invoke(() => pBar.Value = i, System.Windows.Threading.DispatcherPriority.Background);
+                        }
+                    });
                 }
                 catch (Exception ex)
                 {
