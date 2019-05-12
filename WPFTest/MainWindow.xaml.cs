@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Navigation;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace WPFTest
 {
@@ -16,20 +17,19 @@ namespace WPFTest
     {
         string ContentPath { get; }
         void SetContentCount(int count);
-        //List<string> ContentResult { get; set; }
-        //event EventHandler CheckContent;
-        //event EventHandler LoadContent;
     }
 
     public partial class MainWindow : Window, IMainWindow
     {
         MainParser pars = new MainParser();
-        WebClient client = new WebClient();
         MessageService message = new MessageService();
         ParsResult ContentResult = new ParsResult();
+        private DownloadContent DownloadWorker; 
+
         public string ContentPath { get; }
         public int SetSymbolCount { get; set; }
         private MyDataContext MyData;
+        public string AbsoluteUrl { get; set; }
 
         public void SetContentCount(int count)
         {
@@ -41,19 +41,6 @@ namespace WPFTest
             InitializeComponent();
             MyData = new MyDataContext();
             DataContext = MyData;
-
-            /*
-            ScrollViewer sv = new ScrollViewer();
-            sv.CanContentScroll = true;
-            sv.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            myStackPanel.Children.Add(sv);
-            */
-            
-            /*
-            BtnCheck.Click += BtnCheck_Click;
-            BtnSelect.Click += BtnSelect_Click;
-            BtnLoad.Click += BtnLoad_Click;
-            */
         }
 
         private void BtnCheck_Click(object sender, RoutedEventArgs e)
@@ -66,15 +53,15 @@ namespace WPFTest
                     SetSymbolCount = 0;
                     ContentResult = pars.ParseByAngle(int.Parse(TextBoxFind.Text), TextBoxSection.Text);
 
-                    for(int i=0; i<ContentResult.TitleResult.Count; i++)
+                    for (int i = 0; i < ContentResult.TitleResult.Count; i++)
                     {
                         SetSymbolCount++;
                         MyData.MyCollection.Add(new DataModel()
                         {
                             Id = SetSymbolCount,
                             Url = ContentResult.UrlResult[i],
-                            Image= new Uri(ContentResult.TitleResult[i]),
-                            Checked=false
+                            Image = new Uri(ContentResult.TitleResult[i]),
+                            Checked = false
                         });
                     }
                     listView.ItemsSource = MyData.MyCollection;
@@ -91,7 +78,7 @@ namespace WPFTest
             }
         }
 
-        private async void BtnLoad_Click(object sender, RoutedEventArgs e)
+        private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
             if (TextBoxFilePath.Text != "")
             {
@@ -99,7 +86,7 @@ namespace WPFTest
                 {
                     foreach (var b in ContentResult.UrlResult)
                     {
-                        await pars.SaveImage(b, TextBoxFilePath.Text);
+                        DownloadWorker.SaveImage(b, TextBoxFilePath.Text);
                     }
                 }
                 catch (Exception ex)
@@ -139,28 +126,18 @@ namespace WPFTest
             e.Handled = true;
         }
 
-        private async void Hyperlink_Download(object sender, RequestNavigateEventArgs e)
+        private void Hyperlink_Download(object sender, RequestNavigateEventArgs e)
         {
+            string one = e.Uri.AbsoluteUri;
+            string too = TextBoxFilePath.Text;
+            DownloadWorker = new DownloadContent();
+            DownloadWorker.ProgressChanged += DownloadWorker_ProgressChanged;
+            DownloadWorker.WorkCompleted += DownloadWorker_WorkCompleted;
+
             if (TextBoxFilePath.Text != "")
             {
-                try
-                {
-                    var progress = new Progress<int>(value => pBar.Value = value);
-                    await Task.Run(() =>
-                    {
-                        for (int i = 0; i < 100; i++)
-                        {
-                            Dispatcher.Invoke(() => {
-                                pars.SaveImage(e.Uri.AbsoluteUri, TextBoxFilePath.Text);
-                            });
-                            pBar.Dispatcher.Invoke(() => pBar.Value = i, System.Windows.Threading.DispatcherPriority.Background);
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    message.ShowError(ex.Message);
-                }
+                Thread t = new Thread(() => DownloadWorker.SaveImage(one, too));
+                t.Start();
             }
             else
             {
@@ -168,7 +145,24 @@ namespace WPFTest
             }
         }
 
-        //public event EventHandler CheckContent;
-        //public event EventHandler LoadContent;
+        private void DownloadWorker_ProgressChanged(int progress)
+        {
+            Action action = () =>
+            {
+                pBar.Value = pBar.Value + 1;
+                pBar.Value = progress;
+            };
+            Dispatcher.Invoke(action);
+        }
+
+        private void DownloadWorker_WorkCompleted(bool cancelled)
+        {
+            Action action = () =>
+            {
+                string message = cancelled ? "Загрузка отменена" : "Файл загружен";
+                MessageBox.Show(message);
+            };
+            Dispatcher.Invoke(action);
+        }
     }
 }

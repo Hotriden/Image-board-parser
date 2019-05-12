@@ -11,7 +11,6 @@ namespace WPFTest
     public interface IMainParser
     {
         ParsResult ParseByAngle(int number, string section);
-        Task SaveImage(string imageUrl, string filePath);
     }
 
     public class MainParser:IMainParser
@@ -62,18 +61,6 @@ namespace WPFTest
             return FinalResult;
         }
 
-        public async Task SaveImage(string imageUrl, string pathFile)
-        {
-            string result = imageUrl.Substring(imageUrl.IndexOf("src/") + 14);
-
-            string fileName = pathFile + @"\" + result;
-            
-            using (WebClient webclient = new WebClient())
-            {
-                await Task.Run(() => webclient.DownloadFileAsync(new Uri(imageUrl), fileName));
-            }
-        }
-
         public Uri UriConverter(string url)
         {
             string end = url.Remove(0, url.Length - 4);
@@ -87,5 +74,5 @@ namespace WPFTest
             }
             return new Uri(url);
         }
-        }
+    }
 }

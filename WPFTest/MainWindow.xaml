@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFTest"
         mc:Ignorable="d"
-        Title="ICP - Imageboard Content Parser" Height="600" Width="400" HorizontalAlignment="Left" VerticalAlignment="Center" ResizeMode="NoResize">
+        Title="ICP - Imageboard Content Parser" Height="600" Width="400" HorizontalAlignment="Left" VerticalAlignment="Center" ResizeMode="CanResizeWithGrip">
     <Border Padding="5" Margin="0,0,0,0" Background="White" BorderThickness="4" BorderBrush="Aqua">
         <Grid>
             <Grid.RowDefinitions>
