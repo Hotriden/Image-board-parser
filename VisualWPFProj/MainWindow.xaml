@@ -1,0 +1,101 @@
+﻿<Window x:Class="VisualWPFProj.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VisualWPFProj"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Height="600" Width="1024" WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Resources>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="brush">
+            <GradientStop Offset="0" Color="White"/>
+            <GradientStop Offset="0.9" Color="#FFFFE8BD"/>
+            <GradientStop Offset="1" Color="#FFFDDC9F"/>
+        </LinearGradientBrush>
+        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="170"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Orange"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+        <Grid Background="Wheat">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Ellipse Grid.Column="0" Grid.Row="0" Height="150" Width="240" VerticalAlignment="Top" Margin="5 5 5 5">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="Assets/1.jpeg" Stretch="UniformToFill"></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Border Grid.Row="1" BorderBrush="Orange" BorderThickness="3" Height="40" Width="170">
+                <TextBlock x:Name="fld_Input" FontSize="22" Padding="20 0 10 10">
+                </TextBlock>
+            </Border>
+            <Button x:Name="btn_Check" Grid.Row="2" Style="{StaticResource ButtonStyle}" Content="Загрузить тред"/>
+            <Button x:Name="btn_Load" Grid.Row="3" Style="{StaticResource ButtonStyle}" Content="Выбрать путь"/>
+            <Button x:Name="btn_LoadMarked" Grid.Row="4" Style="{StaticResource ButtonStyle}" Content="Скачать все"/>
+            <Button x:Name="btn_Path" Grid.Row="5" Style="{StaticResource ButtonStyle}" Content="Скачать выбор"/>
+            <Button x:Name="btn_Cancel" Grid.Row="6" Style="{StaticResource ButtonStyle}" Background="RosyBrown" Content="Отменить"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" HorizontalAlignment="Right" Grid.Column="1" Width="30" Margin="10 5 5 5">
+                    <Button Width="30" Height="30" Padding="0" Click="btn_close" Background="Orange">
+                    <materialDesign:PackIcon Kind="Power"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Margin="0 5 5 5">
+                <Border Background="White" BorderBrush="Orange" BorderThickness="3" Height="40" Width="340">
+                    <Label Name="fld_URL" Content=""></Label>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="40" Width="340" HorizontalAlignment="Right" Grid.Column="1" Margin="0 5 70 5">
+                <Border BorderBrush="Orange" Background="White" BorderThickness="3" Height="40" Width="340">
+                <TextBlock Name="fld_Path"></TextBlock>
+                </Border>
+            </StackPanel>
+            </Grid>
+            <DataGrid Grid.Row="1" Background="Orange" ItemsSource="{Binding data}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Image" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Height="25" Width="50" Source="{Binding }"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Column="0" Grid.Row="2">
+                <ProgressBar Minimum="0" Maximum="100" Name="pBar" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5 5 5 5" Height="40" Width="340"></ProgressBar>
+                <TextBlock Name="CountValue" Text="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="170" Height="40" TextAlignment="Center" FontSize="22"></TextBlock>
+                <TextBlock Name="CountSources" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="170" Height="40" TextAlignment="Center" FontSize="22"></TextBlock>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
