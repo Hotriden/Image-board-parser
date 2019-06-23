@@ -6,17 +6,21 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using VisualWPFProj.MessageService;
+using System.Collections.ObjectModel;
 
 namespace VisualWPFProj.Model
 {
     public class Parser : IParser
     {
-        public int? ThreadNumber { get; set; }
-        public string ThreadSection { get; set; }
         private readonly IMessageService service;
 
-        public List<DataEntity> ParseData()
+        public ObservableCollection<DataEntity> ParseData(string thread)
         {
+            string board = "https://2ch.hk/";
+            string[] ThreadArray = thread.Split('/');
+            string ThreadSection = ThreadArray[3];
+            string ThreadNumber = ThreadArray[5];
+
             if (ThreadNumber == null || ThreadSection == null)
             {
                 service.ShowMessage("Введите раздел или номер треда");
@@ -25,9 +29,9 @@ namespace VisualWPFProj.Model
             wc.Encoding = Encoding.UTF8;
             var parser = new HtmlParser();
             int counter = 0;
-            List<DataEntity> dataEntities = new List<DataEntity>();
+            ObservableCollection<DataEntity> dataEntities = new ObservableCollection<DataEntity>();
 
-            string url = "https://2ch.hk/" + this.ThreadSection + "/res/" + this.ThreadNumber + ".html";
+            string url = board + ThreadSection + "/res/" + ThreadNumber;
             string Response = wc.DownloadString(url);
             var search = parser.ParseDocument(Response);
             var result = search.GetElementsByClassName("post__file-attr").ToArray();
@@ -35,7 +39,7 @@ namespace VisualWPFProj.Model
             foreach (var b in result)
             {
                 counter++;
-                string patternUrl = "href='".Replace("'", "\"") + "/" + this.ThreadSection;
+                string patternUrl = "href='".Replace("'", "\"") + "/" + ThreadSection;
                 string patternTitle = "href='".Replace("'", "\"") + "http://www.google.com/searchbyimage?image_url=https://2ch.hk/";
                 string[] splitted = b.InnerHtml.Split();
                 string tempUrl = "";

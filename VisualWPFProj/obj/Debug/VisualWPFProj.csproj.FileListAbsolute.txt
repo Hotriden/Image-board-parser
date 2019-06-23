@@ -121,3 +121,11 @@ C:\Users\blood\source\repos\VisualWPFProj\VisualWPFProj\bin\Debug\System.Text.En
 C:\Users\blood\source\repos\VisualWPFProj\VisualWPFProj\bin\Debug\AngleSharp.xml
 C:\Users\blood\source\repos\VisualWPFProj\VisualWPFProj\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\blood\source\repos\VisualWPFProj\VisualWPFProj\obj\Debug\VisualWPFProj.exe.config
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj.csprojAssemblyReference.cache
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj.exe.config
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\MainWindow.g.cs
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\App.g.cs
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj_MarkupCompile.cache
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj_MarkupCompile.lref
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj.exe
+C:\Users\blood\Downloads\Image-board-parser-new_style\VisualWPFProj\obj\Debug\VisualWPFProj.pdb

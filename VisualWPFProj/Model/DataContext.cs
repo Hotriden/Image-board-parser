@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Prism.Mvvm;
+using System.Collections.ObjectModel;
 
 namespace VisualWPFProj.Model
 {
-    public class DataContext:IDataContext
+    public class DataContext: BindableBase
     {
-        public List<DataEntity> DataEntities { get; private set; }
+        IParser parser = new Parser();
 
-        public DataContext(List<DataEntity> context)
+        private readonly ObservableCollection<DataEntity> _myValues = new ObservableCollection<DataEntity>();
+        public readonly ReadOnlyObservableCollection<DataEntity> MyDataCollection;
+
+        public DataContext()
         {
-            DataEntities = context;
+            MyDataCollection = new ReadOnlyObservableCollection<DataEntity>(_myValues);
+        }
+
+        public void LoadData(string value)
+        {
+            _myValues.Union(parser.ParseData(value));
+            RaisePropertyChanged("LoadData");
         }
     }
 }
