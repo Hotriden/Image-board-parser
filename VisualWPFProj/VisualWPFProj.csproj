@@ -71,16 +71,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\IGenerator.cs" />
-    <Compile Include="Core\IParser.cs" />
-    <Compile Include="Core\Parser.cs" />
     <Compile Include="MessageService\MessageService.cs" />
     <Compile Include="Model\DataContext.cs" />
     <Compile Include="Model\DataEntity.cs" />
-    <Compile Include="Core\GenerateContent.cs" />
     <Compile Include="Model\IDataContext.cs" />
     <Compile Include="Model\IMainWindow.cs" />
-    <Compile Include="ViewModel\PersonalViewModel.cs" />
+    <Compile Include="Model\IParser.cs" />
+    <Compile Include="Model\Parser.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

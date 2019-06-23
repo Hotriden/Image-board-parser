@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisualWPFProj.Model
+namespace VisualWPFProj.ViewModels
 {
-    public interface IDataContext
+    class ViewModel
     {
-        List<DataEntity> DataEntities { get; }
     }
 }
