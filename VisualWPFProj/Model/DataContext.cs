@@ -12,17 +12,21 @@ namespace VisualWPFProj.Model
         IParser parser = new Parser();
 
         private readonly ObservableCollection<DataEntity> _myValues = new ObservableCollection<DataEntity>();
-        public readonly ReadOnlyObservableCollection<DataEntity> MyDataCollection;
+        public readonly ReadOnlyObservableCollection<DataEntity> MyValues;
 
         public DataContext()
         {
-            MyDataCollection = new ReadOnlyObservableCollection<DataEntity>(_myValues);
+            MyValues = new ReadOnlyObservableCollection<DataEntity>(_myValues);
         }
 
         public void LoadData(string value)
         {
-            _myValues.Union(parser.ParseData(value));
-            RaisePropertyChanged("LoadData");
+            ObservableCollection<DataEntity> entity = new ObservableCollection<DataEntity>();
+            entity = parser.ParseData(value);
+            _myValues = entity;
+            RaisePropertyChanged("Result");
         }
+
+        public DataEntity Result => MyValues.FirstOrDefault();
     }
 }

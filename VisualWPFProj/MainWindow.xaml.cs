@@ -21,15 +21,15 @@ namespace VisualWPFProj
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IMainWindow
+    public partial class MainWindow : Window
     {
-        public string ThreadNumber { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        /*
         public string FilePath
         {
             get { return fld_Path.Text; }
@@ -41,15 +41,7 @@ namespace VisualWPFProj
             set { fld_Input.Text = value; }
         }
 
-        public event EventHandler FileChosePathClick;
-        public event EventHandler FileSaveContentClick;
-        public event EventHandler FileLoadContentClick;
-
-        public void SetThreadCount(int count)
-        {
-            throw new NotImplementedException();
-        }
-
+*/
         #region Based Window Properties
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -61,7 +53,6 @@ namespace VisualWPFProj
             Application.Current.Shutdown();
         }
         #endregion
-
 
     }
 }

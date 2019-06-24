@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VisualWPFProj"
+        xmlns:local="clr-namespace:VisualWPFProj.ViewModels"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="600" Width="1024" WindowStyle="None" WindowStartupLocation="Manual" ResizeMode="NoResize" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.DataContext>
+        <local:ViewModel/>
+        <!-- Устанавливаем DataContext -->
+    </Window.DataContext>
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="brush">
             <GradientStop Offset="0" Color="White"/>
@@ -48,10 +52,10 @@
                 </Ellipse.Fill>
             </Ellipse>
             <Border Grid.Row="1" BorderBrush="Orange" BorderThickness="3" Height="40" Width="170">
-                <TextBlock x:Name="fld_Input" FontSize="22" Padding="20 0 10 10">
-                </TextBlock>
+                <TextBox x:Name="fld_Input" FontSize="18">
+                </TextBox>
             </Border>
-            <Button x:Name="btn_Check" Grid.Row="2" Style="{StaticResource ButtonStyle}" Content="Загрузить тред"/>
+            <Button x:Name="btn_Check" Grid.Row="2" Style="{StaticResource ButtonStyle}" Command="{Binding LoadContext}" CommandParameter="{Binding ElementName=fld_Input, Path=Text}" Content="Загрузить тред"/>
             <Button x:Name="btn_Load" Grid.Row="3" Style="{StaticResource ButtonStyle}" Content="Выбрать путь"/>
             <Button x:Name="btn_LoadMarked" Grid.Row="4" Style="{StaticResource ButtonStyle}" Content="Скачать все"/>
             <Button x:Name="btn_Path" Grid.Row="5" Style="{StaticResource ButtonStyle}" Content="Скачать выбор"/>
@@ -80,15 +84,10 @@
                 </Border>
             </StackPanel>
             </Grid>
-            <DataGrid Grid.Row="1" Background="Orange" ItemsSource="{Binding data}">
+            <DataGrid Grid.Row="1" ItemsSource="{Binding MyValues}" >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Image" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Height="25" Width="50" Source="{Binding }"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Title"  Width="120" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Url"  Width="120" Binding="{Binding Url}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Column="0" Grid.Row="2">

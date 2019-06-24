@@ -87,7 +87,6 @@
     <Compile Include="MessageService\MessageService.cs" />
     <Compile Include="Model\DataContext.cs" />
     <Compile Include="Model\DataEntity.cs" />
-    <Compile Include="Model\IMainWindow.cs" />
     <Compile Include="Model\IParser.cs" />
     <Compile Include="Model\Parser.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />

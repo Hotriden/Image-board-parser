@@ -12,17 +12,21 @@ namespace VisualWPFProj.ViewModels
 {
     public class ViewModel:BindableBase
     {
-        IParser parser = new Parser();
-        readonly DataContext _context = new DataContext();
+        public DataContext _context = new DataContext();
         public ViewModel()
         {
             _context.PropertyChanged += (s, e) => { RaisePropertyChanged(e.PropertyName); };
             LoadContext = new DelegateCommand<string>(str =>
             {
-                _context.LoadData(str);
+                ObservableCollection<DataEntity> entity = new ObservableCollection<DataEntity>();
+
+                if (str != null)
+                    _context.LoadData(str);
             });
         }
 
         public DelegateCommand<string> LoadContext { get; }
+        public ReadOnlyObservableCollection<DataEntity> MyValues => _context.MyValues;
+
     }
 }
